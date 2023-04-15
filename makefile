@@ -13,11 +13,14 @@ $(OUT_DIR):
 $(OBJ_DIR): $(OUT_DIR)
 	mkdir $(OBJ_DIR)
 
+$(BIN_DIR): $(OUT_DIR)
+	mkdir $(BIN_DIR)
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
 	gcc -c $< -o $@
 
-all: $(OBJ_FILES)
-	gcc $(OBJ_FILES) -o $(OBJ_DIR)/app.out
+all: $(OBJ_FILES) $(BIN_DIR)
+	gcc -o $(BIN_DIR)/app.elf $(OBJ_FILES)
 
 clean: $(OUT_DIR)
 	rm -r $(OUT_DIR)
