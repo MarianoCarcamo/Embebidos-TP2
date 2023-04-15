@@ -1,5 +1,6 @@
 /************************************************************************************************
-Copyright (c) <year>, <copyright holders>
+Copyright (c) 2023, Mariano Carcamo <marianocarcamo98@gmail.com>
+
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
 including without limitation the rights to use, copy, modify, merge, publish, distribute,
@@ -27,6 +28,10 @@ SPDX-License-Identifier: MIT
 
 #include "alumno.h"
 
+#include <string.h>
+
+#include <stdio.h>
+
 /* === Macros definitions ====================================================================== */
 
 /* === Private data type declarations ========================================================== */
@@ -43,6 +48,19 @@ SPDX-License-Identifier: MIT
 
 /* === Public function implementation ========================================================== */
 int main(void){
+    static const struct alumno_s yo = {
+        .apellido = "Carcamo",
+        .nombre = "Mariano",
+        .documento = 41375163,
+    };
+    char cadena[128];
+
+    if(Serializar(&yo, cadena, sizeof(cadena)) >=0) {
+        printf("%s\n",cadena);
+    } else {
+        printf("Error al serializar\n");
+    }
+
     return 0;
 }
 /* === End of documentation ==================================================================== */

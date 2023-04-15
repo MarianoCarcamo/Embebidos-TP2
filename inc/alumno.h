@@ -37,11 +37,21 @@ extern "C" {
 
 /* === Public macros definitions =============================================================== */
 
-/* === Public data type declarations =========================================================== */
+#include <stdint.h>
 
+#define FIELD_SIZE 50
+
+/* === Public data type declarations =========================================================== */
+typedef struct alumno_s{
+    char apellido[FIELD_SIZE];
+    char nombre[FIELD_SIZE];
+    uint32_t documento;
+} const * alumno_t;
 /* === Public variable declarations ============================================================ */
 
 /* === Public function declarations ============================================================ */
+
+int Serializar(alumno_t alumno, char cadena [], uint32_t espacio);
 
 /* === End of documentation ==================================================================== */
 
