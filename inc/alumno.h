@@ -39,17 +39,35 @@ extern "C" {
 
 #include <stdint.h>
 
+/**
+ * @brief Define el tamano de los campos de texto
+ * 
+ * Este parametro define el tamano de los campos de texto de la extructura 
+ * alumno_t @ref()
+ */
 #define FIELD_SIZE 50
 
 /* === Public data type declarations =========================================================== */
+
+//* Estructura para almacenar los datos de un alumno
 typedef struct alumno_s{
     char apellido[FIELD_SIZE];
     char nombre[FIELD_SIZE];
     uint32_t documento;
 } const * alumno_t;
+
 /* === Public variable declarations ============================================================ */
 
 /* === Public function declarations ============================================================ */
+
+/**
+ * @brief Funcion para serializar los datos de un alumno en formato json
+ * 
+ * @param alumno Puntero a estuctura alumno_s
+ * @param cadena Puntero a la cadena de resultado
+ * @param espacio Espacio disponible en la cadena de resultado
+ * @return int Devuelve la longitud de la cadena generada o -1 en caso de rebalse
+ */
 
 int Serializar(alumno_t alumno, char cadena [], uint32_t espacio);
 
