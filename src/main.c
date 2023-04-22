@@ -16,12 +16,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
-/** \brief Segundo trabajo practico
+/** \brief Tercer trabajo practico
  **
- ** 
+ ** Se debe realizar lo mismo que en el TP2 pero con programacion orientado a objetos
  **
- ** \addtogroup tp2 TPN2
- ** \brief Segundo practico
+ ** \addtogroup tp3 TPN3
  ** @{ */
 
 /* === Headers files inclusions =============================================================== */
@@ -48,14 +47,10 @@ SPDX-License-Identifier: MIT
 
 /* === Public function implementation ========================================================== */
 int main(void){
-    static const struct alumno_s yo = {
-        .apellido = "Carcamo",
-        .nombre = "Mariano",
-        .documento = 41375163,
-    };
     char cadena[128];
+    alumno_t yo = CrearAlumno("Carcamo", "Mariano", 41375163);
 
-    if(Serializar(&yo, cadena, sizeof(cadena)) >=0) {
+    if(Serializar(yo, cadena, sizeof(cadena)) >=0) {
         printf("%s\n",cadena);
     } else {
         printf("Error al serializar\n");

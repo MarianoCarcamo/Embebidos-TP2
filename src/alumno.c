@@ -27,16 +27,35 @@ SPDX-License-Identifier: MIT
 /* === Headers files inclusions =============================================================== */
 
 #include "alumno.h"
-
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
 /* === Macros definitions ====================================================================== */
 
 /* === Private data type declarations ========================================================== */
 
+/**
+ * \cond
+ * This code is not documented.
+ */
+
+struct alumno_s{
+    char apellido[FIELD_SIZE];
+    char nombre[FIELD_SIZE];
+    uint32_t documento;
+    bool ocupado;
+};
+
+/**
+ * \endcond
+ */
+
 /* === Private variable declarations =========================================================== */
 
 /* === Private function declarations =========================================================== */
+
 static int SerializarCadena();
 
 static int SerializarNumero();
@@ -45,7 +64,12 @@ static int SerializarNumero();
 
 /* === Private variable definitions ============================================================ */
 
+#ifndef DINAMICO
+    static struct alumno_s instancias[50] = {0};
+#endif
+
 /* === Private function implementation ========================================================= */
+
 static int SerializarCadena(const char * campo, const char * valor, char * cadena, int espacio){
     return snprintf(cadena, espacio, "\"%s\":\"%s\",", campo, valor);
 }
@@ -55,6 +79,38 @@ static int SerializarNumero(const char * campo, int valor, char * cadena, int es
 }
 
 /* === Public function implementation ========================================================== */
+
+alumno_t CrearAlumno(char * apellido,char * nombre, int documento){
+
+    #ifdef DINAMICO
+        alumno_t resultado = malloc(sizeof(struct alumno_s));
+    #else
+        int i;
+        alumno_t resultado;
+
+        for(i = 0 ; i < 50 ; i++){
+            if(instancias[i].ocupado == false){
+                resultado = &instancias[i];
+                instancias[i].ocupado = true;
+            }
+        }
+    #endif
+
+    strcpy(resultado->nombre, nombre);
+    strcpy(resultado->apellido, apellido);
+    resultado->documento = documento;
+
+    return resultado;
+}
+
+int GetCompleto(alumno_t alumno, char cadena [], uint32_t espacio){
+    return snprintf(cadena, espacio, "%s, %s\n", alumno->nombre, alumno->apellido);
+}
+
+int GetDocumento(alumno_t alumno){
+    return alumno->documento;
+}
+
 int Serializar(alumno_t alumno, char cadena [], uint32_t espacio){
     int disponibles = espacio;
     int resultado;

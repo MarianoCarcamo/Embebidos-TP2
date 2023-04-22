@@ -17,7 +17,7 @@ SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
 #ifndef ALUMNO_H
-#define ALUMNO_H
+#define ALUMNO_H 
 
 /** \brief Declaraciones publicas del modulo de alumnos
  **
@@ -29,6 +29,8 @@ SPDX-License-Identifier: MIT
 
 /* === Headers files inclusions ================================================================ */
 
+#include <stdint.h>
+
 /* === Cabecera C++ ============================================================================ */
 
 #ifdef __cplusplus
@@ -36,29 +38,42 @@ extern "C" {
 #endif
 
 /* === Public macros definitions =============================================================== */
-
-#include <stdint.h>
+/**
+ * @brief Macro para definir manejo dinamico o estatico de memoria
+ * 
+ * Los objetos de la clase alumno pueden ser almacenados de forma ESTATICA o de forma
+ * DINAMICA (por defecto). En caso de optar por un manejo estatico de memoria debe comentar la linea 
+ * "#define DINAMICO"
+ */
+#define DINAMICO
 
 /**
  * @brief Define el tamano de los campos de texto
  * 
- * Este parametro define el tamano de los campos de texto de la extructura 
- * alumno_t @ref()
+ * Este parametro define el tamano de los campos de texto incluidos en la clase alumno
  */
 #define FIELD_SIZE 50
 
 /* === Public data type declarations =========================================================== */
 
-//* Estructura para almacenar los datos de un alumno
-typedef struct alumno_s{
-    char apellido[FIELD_SIZE];
-    char nombre[FIELD_SIZE];
-    uint32_t documento;
-} const * alumno_t;
+/// Puntero a un objeto alumno
+typedef struct alumno_s * alumno_t;
 
 /* === Public variable declarations ============================================================ */
 
 /* === Public function declarations ============================================================ */
+
+/// Metodo para crear un alumno con sus datos personales
+
+alumno_t CrearAlumno(char * apellido,char * nombre, int documento);
+
+/// Metodo de acceso al nombre completo del alumno
+///@return Devuelve la longitud de la cadena generada o -1 en caso de rebalse
+int GetCompleto(alumno_t alumno, char cadena [], uint32_t espacio);
+
+/// Metodo de acceso al numero de documento del alumno
+///@return Devuelve el numero de documento
+int GetDocumento(alumno_t alumno);
 
 /**
  * @brief Funcion para serializar los datos de un alumno en formato json
@@ -66,7 +81,7 @@ typedef struct alumno_s{
  * @param alumno Puntero a estuctura alumno_s
  * @param cadena Puntero a la cadena de resultado
  * @param espacio Espacio disponible en la cadena de resultado
- * @return int Devuelve la longitud de la cadena generada o -1 en caso de rebalse
+ * @return Devuelve la longitud de la cadena generada o -1 en caso de rebalse
  */
 
 int Serializar(alumno_t alumno, char cadena [], uint32_t espacio);
