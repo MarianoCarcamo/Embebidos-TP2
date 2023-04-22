@@ -4,7 +4,6 @@
 
 Se deberá crear un repositorio git con acceso público que tenga el código fuente de un proyecto
 en C que cumpla con los siguientes requisitos:
-
 - Se definirá un archivo de makefile para poder compilar el proyecto con el comando make
 all.
 - Todo el código fuente (archivos .c y .h) deberá ubicarse en la carpeta src.
